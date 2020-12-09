@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+    <button onclick="createPlayer()">单击我，创建音乐播放器</button>
+
+  </video>
+  <script>
+    // 获取video元素
+    var videoEle = document.getElementById("video");
+    // 设置视频对象的宽高
+    videoEle.width = 600;
+    videoEle.height = 500;
+    // 获取video对象的宽高
+    console.log(videoEle.width);
+    console.log(videoEle.height);
+    // 设置video的海报帧
+    videoEle.poster = './ad/d24f60b93a71bbcf.jpg'
+    // 创建音乐播放器
+    function createPlayer(){
+      // 创建音乐播放器元素对象
+      let audioEle = new Audio();
+      // 设置音乐播放器对象的URL地址
+      audioEle.src = 'audio/bad.mp3';
+      // 设置HTMLAudioElement对象的controls属性
+      audioEle.controls = true;
+      // 将HTMLElement添加到DOM树上
+      document.body.appendChild(audioEle);
+    }
+  </script>
+</body>
+
+</html>

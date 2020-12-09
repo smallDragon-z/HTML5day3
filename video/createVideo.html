@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="createPlayer()">点我创建视频对象</button>
+  <script>
+    // 创建视频对象
+    function createPlayer(){
+      // 创建视频对象
+      var videoEle = document.createElement("video");
+      // 为视频对象添加必要的属性
+      videoEle.width = 600;
+      videoEle.height = 300;
+      videoEle.src = "video/video.mp4";
+      videoEle.muted = false;
+      videoEle.poster = "./video/poster.jpg";
+      videoEle.controls = true;
+      document.body.appendChild(videoEle);
+    }
+  </script>
+</body>
+</html>

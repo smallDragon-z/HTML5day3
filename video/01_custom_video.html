@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container {
+      position: relative;
+      width: 640px;
+      margin: 0 auto;
+      border: 2px solid #900;
+    }
+
+    #control-buttons {
+      margin: 20px 0;
+    }
+
+    #control-buttons button {
+      display: inline-block;
+      line-height: 30px;
+      height: 30px;
+      background-color: #900;
+      color: #fff;
+      border: none;
+      outline: none;
+      font-size: 12px;
+      font-family: 'Microsoft Yahei';
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #ad {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      margin-top: -180px;
+      margin-left: -200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <video id="video" src="video/video.mp4" width="640" height="360" poster="video/poster.jpg"></video>
+    <div id="control-buttons">
+      <span id="currentTime">00</span>/
+      <span id="duration">00</span>
+      <button id="btn">播放/暂停</button>
+      <button onclick="volumeDec()">减少音量</button>
+      <button onclick="volumeInc()">增大音量</button>
+      <button onclick="changePlayRate(0.5)">0.5倍</button>
+      <button onclick="changePlayRate(1.0)">1.0倍</button>
+      <button onclick="changePlayRate(1.5)">1.5倍</button>
+      <button onclick="changePlayRate(2.0)">2.0倍</button>
+    </div>
+    <div id="ad"><img src="./ad/0D0100005E40CB833950593579383235.jpg" alt=""></div>
+  </div>
+  <script>
+    // 创建一个数组用于存放视屏暂停时的图片
+    let images = [
+      '0D0100005E0DB3591241923143384738.jpg', '0D0100005E2EF493395059357930375A.jpg', '0D0100005E4DDCB31126293290574D55.jpg', '0D0100005E40CB833950593579383235.jpg', '0D0100005E254C951831383513533435.jpg', '0D0100005E4149B13950593579363944.jpg', '0D0100005E42288F9115223570333345.jpg', '0D0100005E588109395059360246315A.jpg'
+    ];
+    // 获取初始情况下播放的时长和获取视频的总时长
+    // 1.查找触发事件的元素
+    let videoEle = document.getElementById('video');
+
+    // 在媒体播放的过程中实时的获取当前的播放时间
+    videoEle.ontimeupdate = function () {
+      // 获取要修改的元素'currentTime'
+      // console.log(videoEle.currentTime);  ，每秒执行4-66次
+      let currentTime = parseInt(videoEle.currentTime);
+      document.getElementById('currentTime').innerHTML = currentTime;
+    }
+    // 2.为元素绑定事件处理函数
+    videoEle.addEventListener('loadedmetadata', () => {
+      // 3.查找要修改的元素
+      let currentTime = parseInt(videoEle.currentTime);
+      let duration = parseInt(videoEle.duration);
+      // 4.修改元素
+      document.getElementById('currentTime').innerHTML = currentTime;
+      document.getElementById('duration').innerHTML = duration;
+    });
+    videoEle
+    // 控制暂停/播放
+    // 1.查找触发事件的元素
+    let btn = document.getElementById('btn');
+    // 2.为元素添加事件处理函数
+    btn.onclick = function () {
+      // 3.查找要修改的元素
+      let videoEle = document.getElementById('video');
+      // 4.修改元素
+      if (videoEle.paused || videoEle.ended) {
+        // 媒体播放
+        console.log(videoEle.paused);
+        console.log(videoEle.ended);
+        videoEle.play();
+      } else {
+        // 媒体暂停
+        videoEle.pause();
+      }
+    }
+    // 控制音量  加音量
+    function volumeInc() {
+      var videoEle = document.getElementById('video');
+      videoEle.volume = Math.min(1, videoEle.volume + 0.1);
+      console.log(videoEle.volume);
+    }
+    // 控制音量  减音量
+    function volumeDec() {
+      var videoEle = document.getElementById('video');
+      videoEle.volume = Math.max(0, videoEle.volume - 0.1);
+      console.log(videoEle.volume);
+    }
+    // 控制播放速率
+    function changePlayRate(value) {
+      value = parseFloat(value);
+      let videoEle = document.getElementById('video');
+      videoEle.playbackRate = value;
+    }
+    // 当媒体播放时隐藏广告位
+    videoEle.onplay = function () {
+      document.getElementById('ad').style.display = 'none';
+    }
+    // 当媒体暂停是随机显示广告位
+    videoEle.onpause = function () {
+      // 查找广告位图片
+      document.getElementById('ad').style.display = 'block';
+      let imgEle = document.getElementById('ad').getElementsByTagName('img')[0];
+      imgEle.src = 'ad/' + images[Math.floor(Math.random() * images.length)]
+    }
+  </script>
+  </div>
+</body>
+
+</html>

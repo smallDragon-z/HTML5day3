@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .canvas{
+      display: block;
+      border:1px solid #f00;
+      margin:0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" class="canvas">    
+  </canvas>  
+  <script>
+    let canvasEle = document.getElementById('canvas');
+    alert(canvasEle.height);
+    // 设置HTMLCanvasElement的宽度和高度
+    // 推荐使用JS修改宽高，而不是CSS
+    canvasEle.width = 600;
+    canvasEle.height = 360;
+    // 获取上下文对象
+    let ctx = canvasEle.getContext('2d');//CanvasRenderingContext2D
+    alert(ctx);
+  </script>
+</body>
+</html>
